@@ -14,6 +14,7 @@
                     <thead>
                         <tr>
                             <th>No</th>
+                            <th>No RM</th>
                             <th>Nama Pasien</th>
                             <th>Nama Dokter</th>
                             <th>Nama Ruangan</th>
@@ -26,6 +27,7 @@
                         @foreach($berkas as $key => $items)
                         <tr class="{{($items->status == 1) ? 'bg-danger text-white' : '' }}">
                             <td>{{$key + 1}}</td>
+                            <td>{{$items->noRM}}</td>
                             <td>{{$items->namaPasien}}</td>
                             <td>{{$items->namaDokter}}</td>
                             <td>{{$items->namaRuangan}}</td>
@@ -34,7 +36,7 @@
                             <td>
                                 @if($items->status == 1)
                                     @if (Auth::id() == 2)
-                                        <a href="/berkas/kembali/{{$items->id}}" class="btn btn-primary">Kembali</a>
+                                        <a href="/berkas/kembali/{{$items->id}}" data-id="{{$items->id}}" class="btn btn-primary btn-kembali">Kembali</a>
                                     @else
                                         <a href="/berkas/edit/{{$items->id}}" class="btn btn-primary">Edit</a>
                                     @endif
@@ -50,10 +52,53 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="modalKembali" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <input type="hidden" name="id_berkas" id="id_berkas" class="form-control">
+          <input type="date" name="tgl_krs" id="tgl_krs" class="form-control">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+        <button type="button" class="btn btn-primary btn-save-kembali">Simpan</button>
+      </div>
+    </div>
+  </div>
+</div>
 @endsection
 @section('script-view')
 <script>
-    $('#table-pasien').dataTable();
+    $('#table-pasien').dataTable({
+        responsive : true,
+    });
 
+    $('.btn-kembali').click(function(e) {
+        e.preventDefault();
+        let id = $(this).attr('data-id');
+        $('#id_berkas').val(id);
+        $('#modalKembali').modal();
+    });
+
+    $('.btn-save-kembali').click(function(e) {
+        e.preventDefault();
+        let id = $('#id_berkas').val();
+        let krs = $('#tgl_krs').val();
+        $.ajax({
+            url : '/berkas/kembali',
+            dataType : 'json',
+            data : {id:id, tgl_krs:krs},
+            success : function(response){
+                $('#modalKembali').modal('hide');
+                window.location.reload();
+            }
+        })
+    });
 </script>
 @endsection

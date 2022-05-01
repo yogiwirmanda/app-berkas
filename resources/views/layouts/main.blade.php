@@ -109,7 +109,10 @@
                             <div class="collapse" id="navbar-maps">
                                 <ul class="nav nav-sm flex-column">
                                     <li class="nav-item">
-                                        <a href="/laporan/24" class="nav-link">Berkas</a>
+                                        <a href="/laporan/berkas" class="nav-link">Berkas</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="/laporan/24" class="nav-link">2x24</a>
                                     </li>
                                     <li class="nav-item">
                                         <a href="/laporan/ruangan" class="nav-link">Ruangan</a>

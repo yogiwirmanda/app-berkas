@@ -12,7 +12,13 @@ class BerkasController extends Controller
 {
     public function index()
     {
-        $dataBerkas = Berkas::select('berkas.*', 'd.nama as namaDokter', 'p.nama as namaPasien', 'r.nama as namaRuangan')
+        $dataBerkas = Berkas::select(
+            'berkas.*',
+            'd.nama as namaDokter',
+            'p.nama as namaPasien',
+            'p.no_rm as noRM',
+            'r.nama as namaRuangan'
+        )
             ->join('dokter as d', 'd.id', 'berkas.id_dokter')
             ->join('pasien as p', 'p.id', 'berkas.id_pasien')
             ->join('ruangan as r', 'r.id', 'berkas.id_ruangan')
@@ -77,20 +83,21 @@ class BerkasController extends Controller
     public function kembali(Request $request)
     {
         $id = $request->id;
+        $tglKrs = Date('Y-m-d H:i:s', strtotime($request->tgl_krs));
         $checkPasien = Berkas::find($id);
 
-        $tglMrs = $checkPasien->tanggal_mrs;
         $tglKembali = Date('Y-m-d h:i:s');
-        $hourdiff = round((strtotime($tglKembali) - strtotime($tglMrs))/3600, 1);
+        $hourdiff = round((strtotime($tglKembali) - strtotime($tglKrs))/3600, 1);
 
         if ($checkPasien) {
             $checkPasien->status = 0;
+            $checkPasien->tanggal_krs = $tglKrs;
             $checkPasien->tanggal_kembali = $tglKembali;
             $checkPasien->jam = $hourdiff;
             $checkPasien->save();
         }
 
-        return \redirect('berkas/index');
+        return json_encode('success');
     }
 
     public function destroy($id)

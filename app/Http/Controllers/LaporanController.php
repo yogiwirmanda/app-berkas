@@ -72,4 +72,30 @@ class LaporanController extends Controller
 
         return view('laporan.ruangan', ['ruangan' => $dataBuild, 'bulan' => $bulan]);
     }
+
+    public function berkas($ruangan = 'all', $bulan = '')
+    {
+        if (strlen($bulan) == 0) {
+            $bulan = Date('m');
+        }
+
+        $dataLaporan = Berkas::select('berkas.*', 'p.no_rm', 'p.nama as namaPasien', 'r.nama as namaRuangan')
+            ->join('pasien as p', 'p.id', 'berkas.id_pasien')
+            ->join('ruangan as r', 'r.id', 'berkas.id_ruangan')
+            ->where('berkas.status', 1)
+            ->whereMonth('berkas.created_at', $bulan);
+
+        $dataRuangan = Ruangan::all();
+        $dataTotalRuangan = 0;
+
+        if ($ruangan == 'all') {
+            $dataTotalRuangan = Berkas::where('status', 1)->count();
+        } else {
+            $dataTotalRuangan = Berkas::where('status', 1)->where('id_ruangan', $ruangan)->count();
+            $dataLaporan = $dataLaporan->where('berkas.id_ruangan', $ruangan);
+        }
+        $dataLaporan = $dataLaporan->get();
+
+        return view('laporan.berkas', ['berkas' => $dataLaporan, 'dataTotal' => $dataTotalRuangan, 'ruangan' => $dataRuangan, 'bulan' => $bulan]);
+    }
 }

@@ -4,7 +4,7 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header d-flex justify-content-between">
-                <h3 class="mb-0">Laporan Berkas</h3>
+                <h3 class="mb-0">Laporan 2x24</h3>
             </div>
             <div class="card-body">
                 <table id="table-pasien" class="table table-bordered table-striped">

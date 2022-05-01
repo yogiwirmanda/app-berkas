@@ -42,7 +42,10 @@ Route::post('/berkas/save', [App\Http\Controllers\BerkasController::class, 'stor
 Route::post('/berkas/update', [App\Http\Controllers\BerkasController::class, 'update'])->name('berkas_update');
 Route::get('/berkas/destroy/{id}', [App\Http\Controllers\BerkasController::class, 'destroy'])->name('berkas_destroy');
 Route::get('/berkas/kembali/{id}', [App\Http\Controllers\BerkasController::class, 'kembali'])->name('berkas_kembali');
+Route::get('/berkas/kembali', [App\Http\Controllers\BerkasController::class, 'kembali'])->name('berkas_kembali_get');
 Route::get('/check/rm', [App\Http\Controllers\BerkasController::class, 'checkPasienRM'])->name('pasien_check');
 Route::get('/laporan/24', [App\Http\Controllers\LaporanController::class, 'index'])->name('laporan_24_index');
 Route::get('/laporan/ruangan', [App\Http\Controllers\LaporanController::class, 'ruangan'])->name('laporan_ruangan_index');
 Route::get('/laporan/ruangan/{bulan}', [App\Http\Controllers\LaporanController::class, 'ruangan'])->name('laporan_ruangan_index_bulan');
+Route::get('/laporan/berkas', [App\Http\Controllers\LaporanController::class, 'berkas'])->name('laporan_berkas_index');
+Route::get('/laporan/berkas/{ruangan}/{month}', [App\Http\Controllers\LaporanController::class, 'berkas'])->name('laporan_berkas_index_filter');
