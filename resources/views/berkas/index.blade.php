@@ -56,7 +56,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Tanggal KRS</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -79,7 +79,7 @@
         responsive : true,
     });
 
-    $('.btn-kembali').click(function(e) {
+    $(document).on('click', '.btn-kembali', function(e) {
         e.preventDefault();
         let id = $(this).attr('data-id');
         $('#id_berkas').val(id);

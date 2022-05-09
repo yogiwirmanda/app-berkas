@@ -41,6 +41,7 @@ class BerkasController extends Controller
         $idDokter = $request->dokter;
         $idRuangan = $request->ruangan;
         $ket = $request->keterangan;
+        $tgl = $request->tanggal_mrs;
         $checkPasien = Pasien::where('no_rm', $noRm)->first();
 
         if ($checkPasien) {
@@ -56,7 +57,7 @@ class BerkasController extends Controller
         $dataBerkas = [];
         $dataBerkas['id_pasien'] = $idPasien;
         $dataBerkas['id_dokter'] = $idDokter;
-        $dataBerkas['tanggal_mrs'] = Date('Y-m-d h:i:s');
+        $dataBerkas['tanggal_mrs'] = $tgl;
         $dataBerkas['id_ruangan'] = $idRuangan;
         $dataBerkas['ket'] = $ket;
         $create = Berkas::create($dataBerkas);

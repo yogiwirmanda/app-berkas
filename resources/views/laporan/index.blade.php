@@ -12,7 +12,7 @@
                         <tr>
                             <th>No RM</th>
                             <th>Nama Pasien</th>
-                            <th>Tanggal MRS</th>
+                            <th>Tanggal KRS</th>
                             <th>Tanggal Kembali</th>
                             <th>Kembali 2x24</th>
                         </tr>
@@ -22,7 +22,7 @@
                         <tr>
                             <td>{{$items->no_rm}}</td>
                             <td>{{$items->namaPasien}}</td>
-                            <td>{{$items->tanggal_mrs}}</td>
+                            <td>{{$items->tanggal_krs}}</td>
                             <td>{{$items->tanggal_kembali}}</td>
                             <td>
                                 @php
@@ -30,7 +30,7 @@
                                     $tglKembali = $items->tanggal_kembali;
                                     $hourdiff = round((strtotime($tglKembali) - strtotime($tglMrs))/3600, 1);
                                     $in24 = 'Tidak';
-                                    if ($hourdiff <= 24){
+                                    if ($hourdiff <= 24 && $hourdiff > 0){
                                         $in24 = 'Ya';
                                     }
                                 @endphp

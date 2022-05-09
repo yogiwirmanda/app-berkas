@@ -4,7 +4,7 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header d-flex justify-content-between">
-                <h3 class="mb-0">Laporan Berkas</h3>
+                <h3 class="mb-0">Laporan Runagan</h3>
                 <div class="row">
                     <div class="col-md-12">
                         <select name="bulan" id="bulan" class="form-control">

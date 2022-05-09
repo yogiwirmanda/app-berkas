@@ -15,7 +15,7 @@
                                 <div class="input-group input-group-merge">
                                     <select name="no_rm" id="no_rm" class="form-control selectize">
                                         @foreach($pasien as $data)
-                                        <option value="{{$data->id}}">{{$data->no_rm}}</option>
+                                        <option value="{{$data->no_rm}}">{{$data->no_rm}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -54,7 +54,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <div class="input-group input-group-merge">
-                                    <input type="date" class="form-control" name="tanggal_mrs" value="{{Date('Y-m-d')}}" readonly>
+                                    <input type="date" class="form-control" name="tanggal_mrs" value="{{Date('Y-m-d')}}">
                                 </div>
                             </div>
                         </div>

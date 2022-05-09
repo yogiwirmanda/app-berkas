@@ -4,7 +4,7 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header d-flex justify-content-between">
-                <h3 class="mb-0">Daftar Dokter</h3>
+                <h3 class="mb-0">Daftar Ruangan</h3>
                 <a class="btn btn-primary" href="/ruangan/create">Tambah Ruangan</a>
             </div>
             <div class="card-body">
