@@ -47,7 +47,8 @@
 @endsection
 @section('script-view')
 <script>
-    $('#table-pasien').dataTable();
-
+    $('#table-pasien').dataTable({
+        responsive : true,
+    });
 </script>
 @endsection

@@ -8,7 +8,7 @@
                 <a class="btn btn-primary" href="/ruangan/create">Tambah Ruangan</a>
             </div>
             <div class="card-body">
-                <table id="table-ruangan" class="table table-bordered table-striped">
+                <table id="table-ruangan" class="table table-bordered table-striped table-responsive">
                     <thead>
                         <tr>
                             <th>Nama Ruangan</th>
@@ -34,7 +34,8 @@
 @endsection
 @section('script-view')
 <script>
-    $('#table-ruangan').dataTable();
-
+    $('#table-ruangan').dataTable({
+        responsive : true,
+    });
 </script>
 @endsection

@@ -34,7 +34,8 @@
 @endsection
 @section('script-view')
 <script>
-    $('#table-dokter').dataTable();
-
+    $('#table-dokter').dataTable({
+        responsive : true,
+    });
 </script>
 @endsection

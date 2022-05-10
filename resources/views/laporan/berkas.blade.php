@@ -58,7 +58,9 @@
 @section('script-view')
 <script>
     $(document).ready(function(e){
-        $('#table-pasien').dataTable();
+        $('#table-pasien').dataTable({
+            responsive : true,
+        });
         $('#bulan').val({{$bulan}});
         $('#bulan').change(function(e){
             let getRuangan = $('#ruangan').val();

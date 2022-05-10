@@ -10,7 +10,7 @@
                 @endif
             </div>
             <div class="card-body">
-                <table id="table-pasien" class="table table-bordered table-striped">
+                <table id="table-pasien" class="table table-bordered table-striped table-responsive">
                     <thead>
                         <tr>
                             <th>No</th>
