@@ -40,8 +40,9 @@
                                     @else
                                         <a href="/berkas/edit/{{$items->id}}" class="btn btn-primary">Edit</a>
                                     @endif
+                                    <a href="/berkas/destroy/{{$items->id}}" class="btn btn-danger">Hapus</a>
                                 @else
-                                    -
+                                    <a href="/berkas/destroy/{{$items->id}}" class="btn btn-danger">Hapus</a>
                                 @endif
                             </td>
                         </tr>

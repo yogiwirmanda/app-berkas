@@ -38,6 +38,7 @@ Route::get('/ruangan/destroy/{id}', [App\Http\Controllers\RuanganController::cla
 Route::get('/berkas/index', [App\Http\Controllers\BerkasController::class, 'index'])->name('berkas_index');
 Route::get('/berkas/create', [App\Http\Controllers\BerkasController::class, 'create'])->name('berkas_create');
 Route::get('/berkas/create/{id}', [App\Http\Controllers\BerkasController::class, 'create'])->name('berkas_create_edit');
+Route::get('/berkas/edit/{id}', [App\Http\Controllers\BerkasController::class, 'edit'])->name('berkas_edit');
 Route::post('/berkas/save', [App\Http\Controllers\BerkasController::class, 'store'])->name('berkas_save');
 Route::post('/berkas/update', [App\Http\Controllers\BerkasController::class, 'update'])->name('berkas_update');
 Route::get('/berkas/destroy/{id}', [App\Http\Controllers\BerkasController::class, 'destroy'])->name('berkas_destroy');

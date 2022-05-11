@@ -34,6 +34,22 @@ class BerkasController extends Controller
         return view('berkas.create', ['id' => $id, 'pasien' => $dataPasien, 'dokter' => $dataDokter, 'ruangan' => $dataRuangan]);
     }
 
+    public function edit($id = '')
+    {
+        $berkas = Berkas::select(
+            'berkas.*',
+            'd.nama as namaDokter',
+            'p.nama as namaPasien',
+            'p.no_rm as noRM',
+            'r.nama as namaRuangan'
+        )
+            ->join('dokter as d', 'd.id', 'berkas.id_dokter')
+            ->join('pasien as p', 'p.id', 'berkas.id_pasien')
+            ->join('ruangan as r', 'r.id', 'berkas.id_ruangan')
+            ->first();
+        return view('berkas.edit', ['id' => $id, 'noRM' => $berkas->noRM, 'namaPasien' => $berkas->namaPasien, 'namaDokter' => $berkas->namaDokter, 'namaRuangan' => $berkas->namaRuangan, 'keterangan' => $berkas->ket, 'tgl' => $berkas->tanggal_mrs]);
+    }
+
     public function store(Request $request)
     {
         $noRm = $request->no_rm;
@@ -70,12 +86,12 @@ class BerkasController extends Controller
         $id = $request->id;
         $noRm = $request->no_rm;
         $nama = $request->nama;
-        $checkPasien = Berkas::find($id);
+        $berkas = Berkas::find($id);
 
-        if ($checkPasien) {
-            $checkPasien->no_rm = $noRm;
-            $checkPasien->nama = $nama;
-            $checkPasien->save();
+        if ($berkas) {
+            $berkas->tanggal_mrs = $request->tanggal_mrs;
+            $berkas->ket = $request->keterangan;
+            $berkas->save();
         }
 
         return \redirect('berkas/index');
@@ -104,8 +120,7 @@ class BerkasController extends Controller
     public function destroy($id)
     {
         $checkPasien = Berkas::find($id);
-        $checkPasien->status = 0;
-        $checkPasien->save();
+        $checkPasien->delete();
 
         return \redirect('/berkas/index');
     }
