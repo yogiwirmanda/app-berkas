@@ -100,11 +100,11 @@ class BerkasController extends Controller
     public function kembali(Request $request)
     {
         $id = $request->id;
-        $tglKrs = Date('Y-m-d H:i:s', strtotime($request->tgl_krs));
+        $tglKrs = Date('Y-m-d', strtotime($request->tgl_krs));
         $checkPasien = Berkas::find($id);
 
-        $tglKembali = Date('Y-m-d h:i:s');
-        $hourdiff = round((strtotime($tglKembali) - strtotime($tglKrs))/3600, 1);
+        $tglKembali = Date('Y-m-d');
+        $hourdiff = round((strtotime($tglKembali . '00:00:00') - strtotime($tglKrs . ' 00:00:00'))/3600, 1);
 
         if ($checkPasien) {
             $checkPasien->status = 0;

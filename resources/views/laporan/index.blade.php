@@ -22,8 +22,8 @@
                         <tr>
                             <td>{{$items->no_rm}}</td>
                             <td>{{$items->namaPasien}}</td>
-                            <td>{{$items->tanggal_krs}}</td>
-                            <td>{{$items->tanggal_kembali}}</td>
+                            <td>{{(strlen($items->tanggal_krs) > 0) ? Date('Y-m-d', strtotime($items->tanggal_krs)) : '-'}}</td>
+                            <td>{{(strlen($items->tanggal_kembali) > 0) ? Date('Y-m-d', strtotime($items->tanggal_kembali)) : '-'}}</td>
                             <td>
                                 @php
                                     $tglMrs = $items->tanggal_mrs;

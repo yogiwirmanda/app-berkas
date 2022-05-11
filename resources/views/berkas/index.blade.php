@@ -31,7 +31,7 @@
                             <td>{{$items->namaPasien}}</td>
                             <td>{{$items->namaDokter}}</td>
                             <td>{{$items->namaRuangan}}</td>
-                            <td>{{$items->tanggal_mrs}}</td>
+                            <td>{{Date('Y-m-d', strtotime($items->tanggal_mrs))}}</td>
                             <td>{{($items->status == 1) ? 'Keluar' : 'Kembali'}}</td>
                             <td>
                                 @if($items->status == 1)
