@@ -11,7 +11,7 @@ class RuanganController extends Controller
 {
     public function index()
     {
-        $dataRuangan = Ruangan::all();
+        $dataRuangan = Ruangan::where('status', 1)->get();
         return view('ruangan.index', ['ruangan' => $dataRuangan]);
     }
 

@@ -115,7 +115,7 @@ class BerkasController extends Controller
         $date2=date_create($tglKembali);
         $diff = date_diff($date1, $date2);
         $selisih = (int) $diff->format("%a");
-        if ($selisih == 2) {
+        if ($selisih <= 2) {
             $jam = 24;
         } else {
             $jam = 36;
