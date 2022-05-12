@@ -58,6 +58,15 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="input-group input-group-merge py-2">
+                                    <input type="checkbox" name="rawat[]" id="RI" class="form-control checkbox" value="RI"><span>RI</span>
+                                    <input type="checkbox" name="rawat[]" id="RJ" class="form-control checkbox" value="RJ"><span>RJ</span>
+                                    <input type="checkbox" name="rawat[]" id="IGD" class="form-control checkbox" value="IGD"><span>IGD</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <button class="btn btn-primary" type="submit">Simpan</button>
                 </form>
@@ -65,4 +74,12 @@
         </div>
     </div>
 </div>
+@endsection
+@section('script-view')
+<script>
+    let rawat = <?php echo json_encode($rawat) ?>;
+    $.each(rawat, function(index, value){
+        $('#' + value).prop('checked', true);
+    });
+</script>
 @endsection

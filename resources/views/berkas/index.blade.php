@@ -20,6 +20,7 @@
                             <th>Nama Ruangan</th>
                             <th>Tanggal Mrs</th>
                             <th>Status</th>
+                            <th>Rawat</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -33,6 +34,18 @@
                             <td>{{$items->namaRuangan}}</td>
                             <td>{{Date('Y-m-d', strtotime($items->tanggal_mrs))}}</td>
                             <td>{{($items->status == 1) ? 'Keluar' : 'Kembali'}}</td>
+                            <td>
+                                @php
+                                    if (strlen($items->rawat) > 0){
+                                        $rawat = json_decode($items->rawat);
+                                    } else {
+                                        $rawat = [];
+                                    }
+                                @endphp
+                                @foreach($rawat as $val)
+                                    <span>{{$val}}</span>
+                                @endforeach
+                            </td>
                             <td>
                                 @if($items->status == 1)
                                     @if (Auth::id() == 2)

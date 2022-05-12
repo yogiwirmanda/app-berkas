@@ -49,7 +49,7 @@ class BerkasController extends Controller
             ->where('berkas.id', $id)
             ->first();
 
-        return view('berkas.edit', ['id' => $id, 'noRM' => $berkas->noRM, 'namaPasien' => $berkas->namaPasien, 'namaDokter' => $berkas->namaDokter, 'namaRuangan' => $berkas->namaRuangan, 'keterangan' => $berkas->ket, 'tgl' => $berkas->tanggal_mrs]);
+        return view('berkas.edit', ['id' => $id, 'noRM' => $berkas->noRM, 'namaPasien' => $berkas->namaPasien, 'namaDokter' => $berkas->namaDokter, 'namaRuangan' => $berkas->namaRuangan, 'keterangan' => $berkas->ket, 'tgl' => $berkas->tanggal_mrs, 'rawat' => \json_decode($berkas->rawat)]);
     }
 
     public function store(Request $request)
@@ -61,6 +61,7 @@ class BerkasController extends Controller
         $ket = $request->keterangan;
         $tgl = $request->tanggal_mrs;
         $checkPasien = Pasien::where('no_rm', $noRm)->first();
+        $rawat = $request->rawat;
 
         if ($checkPasien) {
             $idPasien = $checkPasien->id;
@@ -78,6 +79,7 @@ class BerkasController extends Controller
         $dataBerkas['tanggal_mrs'] = $tgl;
         $dataBerkas['id_ruangan'] = $idRuangan;
         $dataBerkas['ket'] = $ket;
+        $dataBerkas['rawat'] = \json_encode($rawat);
         $create = Berkas::create($dataBerkas);
 
         return \redirect('berkas/index');
@@ -88,11 +90,13 @@ class BerkasController extends Controller
         $id = $request->id;
         $noRm = $request->no_rm;
         $nama = $request->nama;
+        $rawat = $request->rawat;
         $berkas = Berkas::find($id);
 
         if ($berkas) {
             $berkas->tanggal_mrs = $request->tanggal_mrs;
             $berkas->ket = $request->keterangan;
+            $berkas->rawat = \json_encode($rawat);
             $berkas->save();
         }
 

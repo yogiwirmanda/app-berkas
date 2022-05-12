@@ -1,5 +1,11 @@
 @extends('layouts.main')
 @section('content')
+<style>
+    .form-control.checkbox{
+        width: 30px !important;
+        height : 30px !important;
+    }
+</style>
 <div class="row">
     <div class="col-md-12">
         <div class="card">
@@ -63,6 +69,15 @@
                                 <div class="input-group input-group-merge">
                                     <textarea name="keterangan" id="keterangan" placeholder="Keterangan"
                                         class="form-control" cols="10" rows="3"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="input-group input-group-merge py-2">
+                                    <input type="checkbox" name="rawat[]" class="form-control checkbox" value="RI"><span>RI</span>
+                                    <input type="checkbox" name="rawat[]" class="form-control checkbox" value="RJ"><span>RJ</span>
+                                    <input type="checkbox" name="rawat[]" class="form-control checkbox" value="IGD"><span>IGD</span>
                                 </div>
                             </div>
                         </div>
