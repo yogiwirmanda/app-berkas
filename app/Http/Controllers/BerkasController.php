@@ -46,7 +46,9 @@ class BerkasController extends Controller
             ->join('dokter as d', 'd.id', 'berkas.id_dokter')
             ->join('pasien as p', 'p.id', 'berkas.id_pasien')
             ->join('ruangan as r', 'r.id', 'berkas.id_ruangan')
+            ->where('berkas.id', $id)
             ->first();
+
         return view('berkas.edit', ['id' => $id, 'noRM' => $berkas->noRM, 'namaPasien' => $berkas->namaPasien, 'namaDokter' => $berkas->namaDokter, 'namaRuangan' => $berkas->namaRuangan, 'keterangan' => $berkas->ket, 'tgl' => $berkas->tanggal_mrs]);
     }
 
@@ -104,13 +106,22 @@ class BerkasController extends Controller
         $checkPasien = Berkas::find($id);
 
         $tglKembali = Date('Y-m-d');
-        $hourdiff = round((strtotime($tglKembali . '00:00:00') - strtotime($tglKrs . ' 00:00:00'))/3600, 1);
+
+        $date1=date_create($tglKrs);
+        $date2=date_create($tglKembali);
+        $diff = date_diff($date1, $date2);
+        $selisih = (int) $diff->format("%a");
+        if ($selisih == 2) {
+            $jam = 24;
+        } else {
+            $jam = 36;
+        }
 
         if ($checkPasien) {
             $checkPasien->status = 0;
             $checkPasien->tanggal_krs = $tglKrs;
             $checkPasien->tanggal_kembali = $tglKembali;
-            $checkPasien->jam = $hourdiff;
+            $checkPasien->jam = $jam;
             $checkPasien->save();
         }
 

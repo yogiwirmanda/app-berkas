@@ -26,9 +26,7 @@
                             <td>{{(strlen($items->tanggal_kembali) > 0) ? Date('Y-m-d', strtotime($items->tanggal_kembali)) : '-'}}</td>
                             <td>
                                 @php
-                                    $tglMrs = $items->tanggal_mrs;
-                                    $tglKembali = $items->tanggal_kembali;
-                                    $hourdiff = round((strtotime($tglKembali) - strtotime($tglMrs))/3600, 1);
+                                    $hourdiff = $items->jam;
                                     $in24 = 'Tidak';
                                     if ($hourdiff <= 24 && $hourdiff > 0){
                                         $in24 = 'Ya';
