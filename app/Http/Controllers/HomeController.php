@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ruangan;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +24,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $ruangan = Ruangan::select('nama')->where('status', 1)->get();
+        $dataRuangan = [];
+        foreach ($ruangan as $ruang) {
+            $dataRuangan[] = $ruang->nama;
+        }
+
+        return view('home', ['ruangan' => json_encode($dataRuangan)]);
     }
 }
