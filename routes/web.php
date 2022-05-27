@@ -50,3 +50,4 @@ Route::get('/laporan/ruangan', [App\Http\Controllers\LaporanController::class, '
 Route::get('/laporan/ruangan/{bulan}', [App\Http\Controllers\LaporanController::class, 'ruangan'])->name('laporan_ruangan_index_bulan');
 Route::get('/laporan/berkas', [App\Http\Controllers\LaporanController::class, 'berkas'])->name('laporan_berkas_index');
 Route::get('/laporan/berkas/{ruangan}/{month}', [App\Http\Controllers\LaporanController::class, 'berkas'])->name('laporan_berkas_index_filter');
+Route::get('/updateBerkas', [App\Http\Controllers\HomeController::class, 'updateBerkas'])->name('home.updateBerkas');

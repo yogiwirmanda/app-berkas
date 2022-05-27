@@ -35,6 +35,7 @@ var SalesChart = (function() {
 var $chart = $('#chart-berkas-ruangan');
 
 let ruangan =  <?php echo $ruangan ?>;
+let total =  <?php echo $ruanganTotal ?>;
 // Methods
 
 function init($this) {
@@ -57,7 +58,7 @@ function init($this) {
             labels: ruangan,
             datasets: [{
                 label: 'Total Berkas',
-                data: [0, 20, 10, 30, 15, 40, 20, 40, 60, 20, 10, 15,16,17,19,25,10,18,29]
+                data: total
             }]
         }
     });
