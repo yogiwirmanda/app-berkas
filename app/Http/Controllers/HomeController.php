@@ -32,9 +32,9 @@ class HomeController extends Controller
         $totalNo24 = [];
         foreach ($ruangan as $ruang) {
             $dataRuangan[] = $ruang->nama;
-            $dataTotalRuangan[] = Berkas::where('id_ruangan', $ruang->id)->count();
-            $total24[] = Berkas::where('id_ruangan', $ruang->id)->where('jam', 24)->count();
-            $totalNo24[] = Berkas::where('id_ruangan', $ruang->id)->where('jam', 36)->count();
+            $dataTotalRuangan[] = Berkas::where('id_ruangan', $ruang->id)->whereMonth('created_at', Date('m'))->count();
+            $total24[] = Berkas::where('id_ruangan', $ruang->id)->where('jam', 24)->whereMonth('created_at', Date('m'))->count();
+            $totalNo24[] = Berkas::where('id_ruangan', $ruang->id)->where('jam', 36)->whereMonth('created_at', Date('m'))->count();
         }
 
         return view('home', [
