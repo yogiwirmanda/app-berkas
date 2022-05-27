@@ -28,14 +28,20 @@ class HomeController extends Controller
         $ruangan = Ruangan::select('nama', 'id')->where('status', 1)->get();
         $dataRuangan = [];
         $dataTotalRuangan = [];
+        $total24 = [];
+        $totalNo24 = [];
         foreach ($ruangan as $ruang) {
             $dataRuangan[] = $ruang->nama;
             $dataTotalRuangan[] = Berkas::where('id_ruangan', $ruang->id)->count();
+            $total24[] = Berkas::where('id_ruangan', $ruang->id)->where('jam', 24)->count();
+            $totalNo24[] = Berkas::where('id_ruangan', $ruang->id)->where('jam', 36)->count();
         }
 
         return view('home', [
             'ruangan' => json_encode($dataRuangan),
-            'ruanganTotal' => json_encode($dataTotalRuangan)
+            'ruanganTotal' => json_encode($dataTotalRuangan),
+            'total24' => json_encode($total24),
+            'totalNo24' => json_encode($totalNo24),
         ]);
     }
 
