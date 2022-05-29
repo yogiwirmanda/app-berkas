@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Berkas;
 use App\Models\Ruangan;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -35,6 +36,51 @@ class HomeController extends Controller
             $dataTotalRuangan[] = Berkas::where('id_ruangan', $ruang->id)->whereMonth('created_at', Date('m'))->count();
             $total24[] = Berkas::where('id_ruangan', $ruang->id)->where('jam', 24)->whereMonth('created_at', Date('m'))->count();
             $totalNo24[] = Berkas::where('id_ruangan', $ruang->id)->where('jam', 36)->whereMonth('created_at', Date('m'))->count();
+
+            $totalBerkas = 0;
+            $totalBerkasTepat = 0;
+
+            $dataBerkas = Berkas::selectRaw('count(id) as total')
+                ->where('id_ruangan', $ruang->id)
+                ->whereMonth('tanggal_mrs', Date('m'))
+                ->first();
+
+            $dataBerkasJam = Berkas::selectRaw('count(id) as total')
+                ->where('id_ruangan', $ruang->id)
+                ->where('jam', '<=', 24)
+                ->whereMonth('tanggal_mrs', Date('m'))
+                ->first();
+
+            if ($dataBerkas) {
+                $totalBerkas = (int) $dataBerkas->total;
+            }
+            if ($dataBerkasJam) {
+                $totalBerkasTepat = (int) $dataBerkasJam->total;
+            }
+
+            $totalBerkasTidakTepat = 0;
+            $totalBerkasTepatPercent = 0;
+            $totalBerkasTidakTepatPercent = 0;
+
+            if ($totalBerkas > 0) {
+                $totalBerkasTidakTepat = (int) ($totalBerkas - $totalBerkasTepat);
+                $totalBerkasTepatPercent = ($totalBerkasTepat / $totalBerkas) * 100;
+                $totalBerkasTidakTepatPercent = ($totalBerkasTidakTepat / $totalBerkas) * 100;
+            }
+
+            $percentTepat[] = \number_format($totalBerkasTepatPercent, 2);
+            $percentTidakTepat[] = \number_format($totalBerkasTidakTepatPercent, 2);
+        }
+
+        $dayEnd = Date('d', strtotime(Carbon::now()->endOfMonth()));
+        $monthNow = Date('m');
+        $yearNow = Date('Y');
+
+        $labelHari = [];
+        $totalHari = [];
+        for ($i = 1; $i<=$dayEnd;$i++) {
+            $labelHari[] = $i;
+            $totalHari[] = Berkas::where('tanggal_kembali', $yearNow.'-'.$monthNow.'-'.$i)->count();
         }
 
         return view('home', [
@@ -42,6 +88,10 @@ class HomeController extends Controller
             'ruanganTotal' => json_encode($dataTotalRuangan),
             'total24' => json_encode($total24),
             'totalNo24' => json_encode($totalNo24),
+            'percentTepat' => json_encode($percentTepat),
+            'percentTidakTepat' => json_encode($percentTidakTepat),
+            'labelHari' => json_encode($labelHari),
+            'totalHari' => json_encode($totalHari),
         ]);
     }
 

@@ -8,8 +8,8 @@
                 <div class="card-header bg-transparent">
                     <div class="row align-items-center">
                         <div class="col">
-                            <h6 class="text-light text-uppercase ls-1 mb-1">Total</h6>
-                            <h5 class="h3 text-white mb-0">Berkas</h5>
+                            <h6 class="text-light text-uppercase ls-1 mb-1">HARIAN</h6>
+                            <h5 class="h3 text-white mb-0">GRAFIK JUMLAH SETORAN HARIAN</h5>
                         </div>
                         <div class="col">
                             <h5 class="h3 text-white mb-0">Bulan Mei</h5>
@@ -26,8 +26,8 @@
                 <div class="card-header bg-transparent">
                     <div class="row align-items-center">
                         <div class="col">
-                            <h6 class="text-light text-uppercase ls-1 mb-1">Kembali < 24</h6>
-                            <h5 class="h3 text-white mb-0">Pengembalian</h5>
+                            <h6 class="text-light text-uppercase ls-1 mb-1">PENGEMBALIAN</h6>
+                            <h5 class="h3 text-white mb-0">GRAFIK PENGEMBALIAN < 24 JAM</h5>
                         </div>
                         <div class="col">
                             <h5 class="h3 text-white mb-0">Bulan Mei</h5>
@@ -35,6 +35,14 @@
                     </div>
                 </div>
                 <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="w-100 d-flex justify-content-center">
+                                <div class="bg-danger mx-2" style="width: 30px; height:20px;border-radius:10px;background-color:#007500 !important;"></div><div>% TEPAT</div>
+                                <div class="bg-success mx-2" style="width: 30px; height:20px;border-radius:10px;background-color:#FF0000 !important"></div><div>% TT</div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="chart">
                         <canvas id="chart-berkas-pengembalian" class="chart-canvas"></canvas>
                     </div>
@@ -52,8 +60,8 @@ var SalesChart = (function() {
 
 var $chart = $('#chart-berkas-ruangan');
 
-let ruangan =  <?php echo $ruangan ?>;
-let total =  <?php echo $ruanganTotal ?>;
+let totalHari =  <?php echo $totalHari ?>;
+let labelHari =  <?php echo $labelHari ?>;
 // Methods
 
 function init($this) {
@@ -73,10 +81,10 @@ function init($this) {
             }
         },
         data: {
-            labels: ruangan,
+            labels: labelHari,
             datasets: [{
-                label: 'Total Berkas',
-                data: total
+                label: 'Jumlah',
+                data: totalHari
             }]
         }
     });
@@ -104,6 +112,8 @@ var $chart1 = $('#chart-berkas-pengembalian');
 let ruangan =  <?php echo $ruangan ?>;
 let total24 =  <?php echo $total24 ?>;
 let totalNo24 =  <?php echo $totalNo24 ?>;
+let percentTepat =  <?php echo $percentTepat ?>;
+let percentTidakTepat =  <?php echo $percentTidakTepat ?>;
 // Methods
 
 function init($this) {
@@ -120,17 +130,22 @@ function init($this) {
 
                     }
                 }]
+            },
+            plugins: {
+            legend: {
+                display: true,
             }
+        }
         },
         data: {
             labels: ruangan,
             datasets: [{
-                label: '2x24',
-                data: total24,
+                label: 'Tepat',
+                data: percentTepat,
                 backgroundColor: 'green',
             },{
-                label: 'Tidak 2x24',
-                data: totalNo24,
+                label: 'Tidak Tepat',
+                data: percentTidakTepat,
                 backgroundColor: 'red',
             }]
         }
