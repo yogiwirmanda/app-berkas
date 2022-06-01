@@ -1,6 +1,7 @@
 @extends('layouts.main')
 
 @section('content')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.35.3/apexcharts.min.css" integrity="sha512-72LrFm5Wau6YFp7GGd7+qQJYkzRKj5UMQZ4aFuEo3WcRzO0xyAkVjK3NEw8wXjEsEG/skqvXKR5+VgOuzuqPtA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <div class="container-fluid mt--6">
     <div class="row">
         <div class="col-xl-12">
@@ -48,9 +49,28 @@
                     </div>
                 </div>
             </div>
+            <div class="card mt-2">
+                <div class="card-body mt-3">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="text-center mb-2">Prosentase Tepat</div>
+                            <div class="chart">
+                                <div id="chart-diagram-ruangan" class="chart-canvas"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="text-center mb-2">Prosentase Tidak Tepat</div>
+                            <div class="chart">
+                                <div id="chart-diagram-ruangan-tidak" class="chart-canvas"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.35.3/apexcharts.min.js" integrity="sha512-yhdujT21BI/kqk9gcupTh4jMwqLhb+gc6Ytgs4cL0BJjXW+Jo9QyllqLbuluI0cBHqV4XsR7US3lemEGjogQ0w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 @endsection
 @section('script-view')
 <script>
@@ -103,6 +123,7 @@ if ($chart.length) {
 }
 
 })();
+
 var SalesChart1 = (function() {
 
 // Variables
@@ -165,5 +186,55 @@ if ($chart1.length) {
 }
 
 })();
+
+let ruangan =  <?php echo $ruangan ?>;
+let total24 =  <?php echo $total24 ?>;
+let totalNo24 =  <?php echo $totalNo24 ?>;
+
+var options = {
+    series: total24,
+    chart: {
+    width: 400,
+    type: 'pie',
+},
+labels: ruangan,
+responsive: [{
+    breakpoint: 480,
+    options: {
+    chart: {
+        width: 200
+    },
+    legend: {
+        position: 'bottom'
+    }
+    }
+}]
+};
+
+var chart = new ApexCharts(document.querySelector("#chart-diagram-ruangan"), options);
+chart.render();
+
+var options1 = {
+    series: totalNo24,
+    chart: {
+    width: 400,
+    type: 'pie',
+},
+labels: ruangan,
+responsive: [{
+    breakpoint: 480,
+    options: {
+    chart: {
+        width: 200
+    },
+    legend: {
+        position: 'bottom'
+    }
+    }
+}]
+};
+
+var chart1 = new ApexCharts(document.querySelector("#chart-diagram-ruangan-tidak"), options1);
+chart1.render();
 </script>
 @endsection
