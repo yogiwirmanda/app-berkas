@@ -13,7 +13,7 @@
                             <h5 class="h3 text-white mb-0">GRAFIK JUMLAH SETORAN HARIAN</h5>
                         </div>
                         <div class="col">
-                            <h5 class="h3 text-white mb-0">Bulan {{Date('F')}}</h5>
+                            <h5 class="h3 text-white mb-0">Bulan Mei</h5>
                         </div>
                     </div>
                 </div>
@@ -31,7 +31,7 @@
                             <h5 class="h3 text-white mb-0">GRAFIK PENGEMBALIAN < 24 JAM</h5>
                         </div>
                         <div class="col">
-                            <h5 class="h3 text-white mb-0">Bulan {{Date('F')}}</h5>
+                            <h5 class="h3 text-white mb-0">Bulan Mei</h5>
                         </div>
                     </div>
                 </div>

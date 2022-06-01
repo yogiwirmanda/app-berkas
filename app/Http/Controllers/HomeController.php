@@ -42,13 +42,13 @@ class HomeController extends Controller
 
             $dataBerkas = Berkas::selectRaw('count(id) as total')
                 ->where('id_ruangan', $ruang->id)
-                ->whereMonth('tanggal_mrs', Date('m'))
+                ->whereMonth('tanggal_mrs', 5)
                 ->first();
 
             $dataBerkasJam = Berkas::selectRaw('count(id) as total')
                 ->where('id_ruangan', $ruang->id)
                 ->where('jam', '<=', 24)
-                ->whereMonth('tanggal_mrs', Date('m'))
+                ->whereMonth('tanggal_mrs', 5)
                 ->first();
 
             if ($dataBerkas) {
@@ -73,7 +73,7 @@ class HomeController extends Controller
         }
 
         $dayEnd = Date('d', strtotime(Carbon::now()->endOfMonth()));
-        $monthNow = Date('m');
+        $monthNow = 5;
         $yearNow = Date('Y');
 
         $labelHari = [];
