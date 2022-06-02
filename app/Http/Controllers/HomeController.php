@@ -97,7 +97,7 @@ class HomeController extends Controller
 
     public function updateBerkas()
     {
-        $berkas = Berkas::all();
+        $berkas = Berkas::whereDate('created_at', '2022-06-02')->get();
         foreach ($berkas as $items) {
             $getBerkas = Berkas::find($items->id);
             $date1=date_create($getBerkas->tanggal_krs);
