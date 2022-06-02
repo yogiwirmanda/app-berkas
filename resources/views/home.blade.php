@@ -23,7 +23,7 @@
                     </div>
                 </div>
             </div>
-            <div class="card bg-default">
+            <div class="card">
                 <div class="card-header bg-transparent">
                     <div class="row align-items-center">
                         <div class="col">
@@ -36,16 +36,16 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <div class="row">
+                    <!-- <div class="row">
                         <div class="col-md-12">
                             <div class="w-100 d-flex justify-content-center">
                                 <div class="bg-danger mx-2" style="width: 30px; height:20px;border-radius:10px;background-color:#007500 !important;"></div><div>% TEPAT</div>
                                 <div class="bg-success mx-2" style="width: 30px; height:20px;border-radius:10px;background-color:#FF0000 !important"></div><div>% TT</div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="chart">
-                        <canvas id="chart-berkas-pengembalian" class="chart-canvas"></canvas>
+                        <div id="chart-berkas-pengembalian"></div>
                     </div>
                 </div>
             </div>
@@ -124,68 +124,80 @@ if ($chart.length) {
 
 })();
 
-var SalesChart1 = (function() {
+let ruangan1 =  <?php echo $ruangan ?>;
+let totalTepatPercent =  <?php echo $percentTepat ?>;
+let totalTidakTepatPercent =  <?php echo $percentTidakTepat ?>;
 
-// Variables
-
-var $chart1 = $('#chart-berkas-pengembalian');
-
-let ruangan =  <?php echo $ruangan ?>;
-let total24 =  <?php echo $total24 ?>;
-let totalNo24 =  <?php echo $totalNo24 ?>;
-let percentTepat =  <?php echo $percentTepat ?>;
-let percentTidakTepat =  <?php echo $percentTidakTepat ?>;
-// Methods
-
-function init($this) {
-    var salesChart1 = new Chart($this, {
-        type: 'bar',
-        options: {
-            scales: {
-                yAxes: [{
-                    gridLines: {
-                        color: Charts.colors.gray[700],
-                        zeroLineColor: Charts.colors.gray[700]
-                    },
-                    ticks: {
-
-                    }
-                }]
-            },
-            plugins: {
-            legend: {
-                display: true,
-            }
+var optionsB = {
+    series: [{
+    name: 'Tepat',
+    data: totalTepatPercent
+}, {
+    name: 'Tidak Tepat',
+    data: totalTidakTepatPercent
+}],
+    chart: {
+    type: 'bar',
+    height: 350,
+    width : 850,
+},
+plotOptions: {
+    bar: {
+    horizontal: false,
+    columnWidth: '30%',
+    endingShape: 'rounded'
+    },
+},
+dataLabels: {
+    enabled: false
+},
+plotOptions: {
+    bar: {
+    borderRadius: 0,
+    dataLabels: {
+        position: 'top', // top, center, bottom
+    },
+    }
+},
+dataLabels: {
+    enabled: true,
+    formatter: function (val) {
+        return val + "%";
+    },
+    offsetY: -20,
+    style: {
+        fontSize: '10px',
+        colors: ["#304758"]
+    }
+},
+stroke: {
+    show: true,
+    width: 2,
+    colors: ['transparent']
+},
+xaxis: {
+    categories: ruangan1,
+},
+yaxis: {
+    title: {
+    text: '$ (thousands)'
+    }
+},
+fill: {
+    opacity: 1
+},
+tooltip: {
+    y: {
+        formatter: function (val) {
+            return val + "%"
         }
-        },
-        data: {
-            labels: ruangan,
-            datasets: [{
-                label: 'Tepat',
-                data: percentTepat,
-                backgroundColor: 'green',
-            },{
-                label: 'Tidak Tepat',
-                data: percentTidakTepat,
-                backgroundColor: 'red',
-            }]
         }
-    });
-
-    // Save to jQuery object
-
-    $this.data('chart', SalesChart1);
-
+    }
 };
 
+var chartB = new ApexCharts(document.querySelector("#chart-berkas-pengembalian"), optionsB);
+chartB.render();
 
-// Events
-
-if ($chart1.length) {
-    init($chart1);
-}
-
-})();
 
 let ruangan =  <?php echo $ruangan ?>;
 let total24 =  <?php echo $total24 ?>;

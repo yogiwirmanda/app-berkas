@@ -65,7 +65,7 @@
             </div>
             <div class="navbar-inner">
                 <!-- Collapse -->
-                <div class="collapse navbar-collapse" id="sidenav-collapse-main">
+                <div class="navbar-collapse" id="sidenav-collapse-main">
                     <!-- Nav items -->
                     <ul class="navbar-nav">
                         <li class="nav-item">
