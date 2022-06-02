@@ -180,7 +180,7 @@ xaxis: {
 },
 yaxis: {
     title: {
-    text: '$ (thousands)'
+    text: 'Total Percent'
     }
 },
 fill: {
